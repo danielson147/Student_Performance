@@ -29,6 +29,10 @@ if model is None:
 
 # ---------------- Sidebar ----------------
 with st.sidebar:
+    # ✅ DeepTech logo added here
+    if os.path.exists("deeptech_logo.png"):
+        st.image("deeptech_logo.png", width=150)
+
     st.title("🎓 Student Predictor")
     st.markdown("Created by: *Olalekan Ayinde*")
     st.markdown("---")
@@ -46,13 +50,23 @@ st.subheader("📝 Enter Student Information")
 col1, col2 = st.columns(2)
 
 with col1:
-    study_time = st.number_input("Study Time (hours per week)", min_value=0.0, max_value=50.0, value=10.0)
-    absences = st.number_input("Number of Absences", min_value=0, max_value=100, value=2)
-    failures = st.number_input("Past Class Failures", min_value=0, max_value=5, value=0)
+    study_time = st.number_input(
+        "Study Time (hours per week)", min_value=0.0, max_value=50.0, value=10.0
+    )
+    absences = st.number_input(
+        "Number of Absences", min_value=0, max_value=100, value=2
+    )
+    failures = st.number_input(
+        "Past Class Failures", min_value=0, max_value=5, value=0
+    )
 
 with col2:
-    g1 = st.number_input("First Term Score (G1)", min_value=0, max_value=100, value=60)
-    g2 = st.number_input("Second Term Score (G2)", min_value=0, max_value=100, value=65)
+    g1 = st.number_input(
+        "First Term Score (G1)", min_value=0, max_value=100, value=60
+    )
+    g2 = st.number_input(
+        "Second Term Score (G2)", min_value=0, max_value=100, value=65
+    )
 
 # ---------------- Prediction ----------------
 if st.button("🚀 Predict Performance"):
@@ -62,7 +76,10 @@ if st.button("🚀 Predict Performance"):
 
         st.success("✅ Prediction Successful")
         st.subheader("📈 Predicted Final Score")
-        st.metric(label="Expected Performance", value=round(float(prediction[0]), 2))
+        st.metric(
+            label="Expected Performance",
+            value=round(float(prediction[0]), 2)
+        )
 
     except Exception as e:
         st.error(f"❌ Prediction failed: {e}")
