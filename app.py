@@ -46,7 +46,7 @@ with st.sidebar:
     if os.path.exists("deeptech_logo.png"):
         st.image("deeptech_logo.png", width=150)
 
-    st.title("🎓 Student Predictor")
+    st.title("🎓 Student Performance Predictor")
     st.markdown("Created by: *Olalekan Ayinde*")
     st.markdown("---")
     st.write("Enter student details to predict academic performance.")
@@ -100,3 +100,4 @@ if st.button("🚀 Predict Performance"):
 # ---------------- Footer ----------------
 st.markdown("---")
 st.caption("⚙️ Powered by DeepTech | DSN | Streamlit App")
+
