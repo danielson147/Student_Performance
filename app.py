@@ -15,12 +15,25 @@ import os
 @st.cache_resource
 def load_model():
     try:
+        # ✅ Best practice: ensure xgboost is available
+        import xgboost  # required to unpickle the model
+
         with open("best_xgb_model.pkl", "rb") as file:
             model = pickle.load(file)
         return model
+
+    except ModuleNotFoundError:
+        st.error(
+            "❌ XGBoost is not installed.\n\n"
+            "Please add **xgboost** to your requirements.txt file "
+            "before deploying this app."
+        )
+        return None
+
     except Exception as e:
         st.error(f"❌ Error loading model: {e}")
         return None
+
 
 model = load_model()
 
@@ -29,7 +42,7 @@ if model is None:
 
 # ---------------- Sidebar ----------------
 with st.sidebar:
-    # ✅ DeepTech logo added here
+    # ✅ DeepTech logo
     if os.path.exists("deeptech_logo.png"):
         st.image("deeptech_logo.png", width=150)
 
