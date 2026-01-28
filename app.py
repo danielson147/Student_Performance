@@ -62,23 +62,44 @@ st.subheader("📝 Enter Student Information")
 
 col1, col2 = st.columns(2)
 
+# ---------------- Input Section ----------------
+st.subheader("📝 Enter Student Information")
+
+col1, col2 = st.columns(2)
+
 with col1:
-    study_time = st.number_input(
-        "Study Time (hours per week)", min_value=0.0, max_value=50.0, value=10.0
-    )
     absences = st.number_input(
-        "Number of Absences", min_value=0, max_value=100, value=2
+        "Number of Absences",
+        min_value=0,
+        max_value=93,
+        value=2
     )
-    failures = st.number_input(
-        "Past Class Failures", min_value=0, max_value=5, value=0
+
+    guardian_label = st.selectbox(
+        "Student Guardian",
+        options=["mother", "father", "other"]
+    )
+
+    goout = st.slider(
+        "Going Out With Friends",
+        min_value=1,
+        max_value=5,
+        value=3
     )
 
 with col2:
-    g1 = st.number_input(
-        "First Term Score (G1)", min_value=0, max_value=100, value=60
+    g1 = st.slider(
+        "First Period Grade (G1)",
+        min_value=0,
+        max_value=20,
+        value=10
     )
-    g2 = st.number_input(
-        "Second Term Score (G2)", min_value=0, max_value=100, value=65
+
+    g2 = st.slider(
+        "Second Period Grade (G2)",
+        min_value=0,
+        max_value=20,
+        value=11
     )
 
 # ---------------- Prediction ----------------
@@ -100,4 +121,5 @@ if st.button("🚀 Predict Performance"):
 # ---------------- Footer ----------------
 st.markdown("---")
 st.caption("⚙️ Powered by DeepTech | DSN | Streamlit App")
+
 
