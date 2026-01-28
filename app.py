@@ -18,7 +18,7 @@ def load_model():
         # ✅ Best practice: ensure xgboost is available
         import xgboost  # required to unpickle the model
 
-        with open("best_xgb_model.pkl", "rb") as file:
+        with open("best_xgb_five_features_model.pkl", "rb") as file:
             model = pickle.load(file)
         return model
 
@@ -121,6 +121,7 @@ if st.button("🚀 Predict Performance"):
 # ---------------- Footer ----------------
 st.markdown("---")
 st.caption("⚙️ Powered by DeepTech | DSN | Streamlit App")
+
 
 
 
