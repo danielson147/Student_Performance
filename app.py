@@ -8,14 +8,12 @@ st.set_page_config(
 
 import pickle
 import numpy as np
-import pandas as pd
 import os
 
 # ---------------- Load Model ----------------
 @st.cache_resource
 def load_model():
     try:
-        # ✅ Best practice: ensure xgboost is available
         import xgboost  # required to unpickle the model
 
         with open("best_xgb_five_features_model.pkl", "rb") as file:
@@ -36,13 +34,11 @@ def load_model():
 
 
 model = load_model()
-
 if model is None:
     st.stop()
 
 # ---------------- Sidebar ----------------
 with st.sidebar:
-    # ✅ DeepTech logo
     if os.path.exists("deeptech_logo.png"):
         st.image("deeptech_logo.png", width=150)
 
@@ -56,11 +52,6 @@ st.title("📊 Student Performance Prediction App")
 st.markdown(
     "This app predicts a student's academic performance using a trained machine learning model."
 )
-
-# ---------------- Input Section ----------------
-st.subheader("📝 Enter Student Information")
-
-col1, col2 = st.columns(2)
 
 # ---------------- Input Section ----------------
 st.subheader("📝 Enter Student Information")
@@ -105,13 +96,27 @@ with col2:
 # ---------------- Prediction ----------------
 if st.button("🚀 Predict Performance"):
     try:
-        input_data = np.array([[absences, guardian_label, goout, g1, g2]])
+        # 🔒 Guardian encoding (MUST match training)
+        guardian_mapping = {
+            "mother": 0,
+            "father": 1,
+            "other": 2
+        }
+        guardian = guardian_mapping[guardian_label]
+
+        # 🔒 Feature order MUST match training:
+        # ['absences', 'guardian', 'goout', 'G1', 'G2']
+        input_data = np.array(
+            [[absences, guardian, goout, g1, g2]],
+            dtype=np.float32  # 🚨 critical fix
+        )
+
         prediction = model.predict(input_data)
 
         st.success("✅ Prediction Successful")
         st.subheader("📈 Predicted Final Score")
         st.metric(
-            label="Expected Performance",
+            label="Expected Performance (G3)",
             value=round(float(prediction[0]), 2)
         )
 
@@ -121,7 +126,3 @@ if st.button("🚀 Predict Performance"):
 # ---------------- Footer ----------------
 st.markdown("---")
 st.caption("⚙️ Powered by DeepTech | DSN | Streamlit App")
-
-
-
-
