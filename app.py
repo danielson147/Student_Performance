@@ -105,7 +105,7 @@ with col2:
 # ---------------- Prediction ----------------
 if st.button("🚀 Predict Performance"):
     try:
-        input_data = np.array([[study_time, absences, failures, g1, g2]])
+        input_data = np.array([[absences, guardian_label, goout, g1, g2]])
         prediction = model.predict(input_data)
 
         st.success("✅ Prediction Successful")
@@ -121,5 +121,6 @@ if st.button("🚀 Predict Performance"):
 # ---------------- Footer ----------------
 st.markdown("---")
 st.caption("⚙️ Powered by DeepTech | DSN | Streamlit App")
+
 
 
